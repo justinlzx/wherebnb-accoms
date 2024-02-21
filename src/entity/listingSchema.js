@@ -1,7 +1,12 @@
-const EntitySchema = require("typeorm").EntitySchema; // import {EntitySchema} from "typeorm";
-const Category = require("../model/Category").Category; // import {Category} from "../model/Category";
+import { EntitySchema } from "typeorm";
+import { Listing } from "../model/listing.js";
 
-module.exports = newEntitySchema({
+
+
+// const EntitySchema = require("typeorm").EntitySchema; // import {EntitySchema} from "typeorm";
+// const Listing = require("../model/listing").Listing; // import {Category} from "../model/Category";
+
+export const ListingModel = new EntitySchema({
     name: "Listing",
     target: Listing,
     columns: {
@@ -10,13 +15,13 @@ module.exports = newEntitySchema({
             type: "int",
         },
         name: {
-            type: "varchar255",
+            type: "varchar",
         },
         hostId: {
             type: "int",
         },
         propertyType: {
-            type: "varchar(255)",
+            type: "varchar",
         },
         latitude: {
             type: "float",

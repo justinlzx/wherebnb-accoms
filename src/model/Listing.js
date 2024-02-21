@@ -1,6 +1,6 @@
 import { Entity } from 'typeorm'
 
-class Listing {
+export class Listing {
     constructor(listingId, name, hostId, propertyType, address, latitude, longitude) {
         this.listingId = listingId;
         this.name = name;
@@ -12,6 +12,3 @@ class Listing {
     }
 }
 
-module.exports = {
-    Listing: Listing
-};

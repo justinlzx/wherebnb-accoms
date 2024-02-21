@@ -1,9 +1,13 @@
-const EntitySchema = require("typeorm").EntitySchema; // import {EntitySchema} from "typeorm";
-const Category = require("../model/Category").Category; // import {Category} from "../model/Category";
+import { EntitySchema } from "typeorm";
+import { Comment } from "../model/comment.js";
 
-module.exports = newEntitySchema({
-    name: "Listing",
-    target: Listing,
+
+// const EntitySchema = require("typeorm").EntitySchema; // import {EntitySchema} from "typeorm";
+// const Comment = require("../model/comment").Comment; // import {Category} from "../model/Category";
+
+export const CommentModel = new EntitySchema({
+    name: "Comment",
+    target: Comment,
     columns: {
         commentId: {
             type: "int",
@@ -13,10 +17,10 @@ module.exports = newEntitySchema({
             type: "int",
         },
         comment: {
-            type: "varchar(255)",
+            type: "varchar",
         },
         userId:{
-            type: "varchar(255)"
+            type: "varchar"
         }
     }
 })

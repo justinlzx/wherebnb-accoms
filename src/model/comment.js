@@ -1,4 +1,5 @@
-/*export */ class Comment {
+/*export */ 
+export class Comment {
     constructor(commentId, listingId, comment, userId) {
             this.commentId = comment;
             this.listingId = listingId;
@@ -7,6 +8,6 @@
     }
 }
 
-module.exports = {
-    Comment: Comment
-};
+// module.exports = {
+//     Comment: Comment
+// };
