@@ -13,8 +13,7 @@ const app = express();
 
 const NODE_PORT = process.env.PORT || 3000;
 
-console.log(dbConfig)
-const AppDataSource = new DataSource(dbConfig)
+export const AppDataSource = new DataSource(dbConfig)
 
 AppDataSource.initialize()
     .then(() => {
@@ -25,8 +24,6 @@ AppDataSource.initialize()
     .catch((err) => {
         console.error("Error during Data Source initialization", err)
     })
-
-
 
 app.use(cors());
 app.use(express.json());
