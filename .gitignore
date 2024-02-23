@@ -1,0 +1,6 @@
+.env
+
+# config files for typeorm and firebase
+./db/
+
+node_modules
