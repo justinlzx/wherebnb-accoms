@@ -2,15 +2,12 @@ import { EntitySchema } from "typeorm";
 import { Listing } from "../model/listing.js";
 
 
-
-// const EntitySchema = require("typeorm").EntitySchema; // import {EntitySchema} from "typeorm";
-// const Listing = require("../model/listing").Listing; // import {Category} from "../model/Category";
-
 export const ListingModel = new EntitySchema({
     name: "Listing",
     target: Listing,
     columns: {
         listingId: {
+            generated: true,
             primary: true,
             type: "int",
         },
@@ -28,6 +25,30 @@ export const ListingModel = new EntitySchema({
         },
         longitude:{
             type: "float"
+        },
+        address: {
+            type: "varchar",
+        },
+        image_1: {
+            type: "varchar",
+            nullable: true
+        },
+        image_2: {
+            type: "varchar",
+            nullable: true
+        },
+        image_3: {
+            type: "varchar",
+            nullable: true
+        },
+        image_4: {
+            type: "varchar",
+            nullable: true
+        },
+        image_5: {
+            type: "varchar",
+            nullable: true
         }
+        
     }
 })
