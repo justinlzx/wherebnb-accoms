@@ -5,17 +5,21 @@ import cors from 'cors';
 import dotenv from 'dotenv'
 import { DataSource } from "typeorm"
 import  { dbConfig } from '../db/ormconfig.js';
-import { initializeApp, getApp } from 'firebase/app'
+import { initializeApp } from 'firebase/app'
 import { firebaseConfig } from '../db/firebase.config.js';
 
 dotenv.config()
 
 const app = express();
 
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use('/', routes)
+
 const NODE_PORT = process.env.PORT || 3000;
 
 export const firebaseApp = initializeApp(firebaseConfig)
-
 
 export const AppDataSource = new DataSource(dbConfig)
 
@@ -29,10 +33,7 @@ AppDataSource.initialize()
         console.error("Error during Data Source initialization", err)
     })
 
-app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use('/', routes)
+
 
 
 
