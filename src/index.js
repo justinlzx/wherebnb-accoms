@@ -4,7 +4,7 @@ import chalk from 'chalk';
 import cors from 'cors';
 import dotenv from 'dotenv'
 import { DataSource } from "typeorm"
-import  { dbConfig } from '../db/ormconfig.js';
+import  { remoteDbConfig, localDbConfig } from '../db/ormconfig.js';
 import { initializeApp } from 'firebase/app'
 import { firebaseConfig } from '../db/firebase.config.js';
 
@@ -17,16 +17,39 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/', routes)
 
-const NODE_PORT = process.env.PORT || 3000;
+const ENV = process.env
+const NODE_PORT = ENV.NODE_PORT || 3000;
 
 export const firebaseApp = initializeApp(firebaseConfig)
 
-export const AppDataSource = new DataSource(dbConfig)
+export const AppDataSource = new DataSource(ENV.USE_DB === "LOCAL" ? localDbConfig : remoteDbConfig)
+
+// stack tracing for debugging
+app.use(
+  (
+    err,
+    _req,
+    res ,
+    _next ,
+  ) => {
+    console.error(err);
+    const code = typeof err.code === "number" ? err.code : 500;
+    const stack = ENV.USE_DB === "LOCAL" ? err.stack : "";
+    console.log("stack:", stack)
+    res.status(code).json({
+      name: err.name,
+      success: false,
+      message: err.message,
+      stack,
+    });
+  },
+);
+
 
 AppDataSource.initialize()
     .then(() => {
         app.listen(NODE_PORT, async () => {
-          console.log(chalk.bgGreen.white(`CONNECTED TO DB AND APP LISTENING ON PORT ${NODE_PORT}`))
+          console.log(chalk.bgGreen.white(`CONNECTED TO ${ENV.USE_DB} DB AND APP LISTENING ON PORT ${NODE_PORT}`))
         });
     })
     .catch((err) => {
