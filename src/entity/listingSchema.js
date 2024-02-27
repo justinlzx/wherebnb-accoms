@@ -1,10 +1,6 @@
 import { EntitySchema } from "typeorm";
-import { Listing } from "../model/listing.js";
+import { Listing } from "../model/Listing.js";
 
-
-
-// const EntitySchema = require("typeorm").EntitySchema; // import {EntitySchema} from "typeorm";
-// const Listing = require("../model/listing").Listing; // import {Category} from "../model/Category";
 
 export const ListingModel = new EntitySchema({
     name: "Listing",
@@ -13,6 +9,7 @@ export const ListingModel = new EntitySchema({
         listingId: {
             primary: true,
             type: "int",
+            generated: true
         },
         name: {
             type: "varchar",

@@ -1,9 +1,6 @@
 import { EntitySchema } from "typeorm";
-import { Comment } from "../model/comment.js";
+import { Comment } from "../model/Comment.js";
 
-
-// const EntitySchema = require("typeorm").EntitySchema; // import {EntitySchema} from "typeorm";
-// const Comment = require("../model/comment").Comment; // import {Category} from "../model/Category";
 
 export const CommentModel = new EntitySchema({
     name: "Comment",
@@ -11,7 +8,8 @@ export const CommentModel = new EntitySchema({
     columns: {
         commentId: {
             type: "int",
-            primary: "true"
+            primary: "true",
+            generated: "true"
         },
         listingId: {
             type: "int",
