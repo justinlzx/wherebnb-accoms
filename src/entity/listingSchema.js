@@ -1,5 +1,5 @@
 import { EntitySchema } from "typeorm";
-import { Listing } from "../model/listing.js";
+import { Listing } from "../model/Listing.js";
 
 
 export const ListingModel = new EntitySchema({
@@ -10,6 +10,7 @@ export const ListingModel = new EntitySchema({
             generated: true,
             primary: true,
             type: "int",
+            generated: true
         },
         name: {
             type: "varchar",
