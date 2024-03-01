@@ -4,17 +4,24 @@ import chalk from 'chalk';
 import cors from 'cors';
 import dotenv from 'dotenv'
 import { DataSource } from "typeorm"
-import  { dbConfig } from '../ormconfig.js';
-
+import  { dbConfig } from '../db/ormconfig.js';
+import { initializeApp } from 'firebase/app'
+import { firebaseConfig } from '../db/firebase.config.js';
 
 dotenv.config()
 
 const app = express();
 
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use('/', routes)
+
 const NODE_PORT = process.env.PORT || 3000;
 
-console.log(dbConfig)
-const AppDataSource = new DataSource(dbConfig)
+export const firebaseApp = initializeApp(firebaseConfig)
+
+export const AppDataSource = new DataSource(dbConfig)
 
 AppDataSource.initialize()
     .then(() => {
@@ -28,9 +35,5 @@ AppDataSource.initialize()
 
 
 
-app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use('/', routes)
 
 
