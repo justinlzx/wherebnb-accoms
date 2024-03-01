@@ -1,13 +1,34 @@
 import { entityList } from "../src/entity/entityList.js"
+import dotenv from 'dotenv'
 
-export const dbConfig = {
-    "name": "useful-memory-414316:us-central1:wherebnb-dev-db",
-    "type": "mysql",
-    "host": "34.173.224.187",
-    "port": 3306,
-    "username": "root",
-    "password": "wherebnb",
+dotenv.config()
+
+const ENV = process.env 
+const syncDB = ENV.SYNC_DB
+
+
+export const remoteDbConfig = {
+    "name": ENV.REMOTE_DB_NAME,
+    "type": ENV.REMOTE_DB_TYPE,
+    "host": ENV.REMOTE_DB_HOST,
+    "port": ENV.REMOTE_DB_PORT,
+    "username": ENV.REMOTE_DB_USER,
+    "password": ENV.REMOTE_DB_PASSWORD,
     "database": "accoms",
     "entities": entityList,
-    "synchronize": true
+    "synchronize": syncDB || false
 }
+
+export const localDbConfig = {
+    "name": ENV.LOCAL_DB_NAME,
+    "type": ENV.LOCAL_DB_TYPE,
+    "host": ENV.LOCAL_DB_HOST,
+    "port": ENV.LOCAL_DB_PORT,
+    "username": ENV.LOCAL_DB_USER,
+    "password": ENV.LOCAL_DB_PASSWORD,
+    "database": "accoms",
+    "entities": entityList,
+    "synchronize": syncDB || false
+}
+
+console.log("syncDb: ", syncDB);
