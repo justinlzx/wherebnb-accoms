@@ -2,7 +2,8 @@ import { ListingModel } from "../entity/listingSchema.js";
 import { AppDataSource } from "../index.js";
 import chalk from 'chalk';
 
-export const create = async (payload) => {
+//add new listing
+export const createAccoms = async (payload) => {
     try{
         const result = await AppDataSource.createQueryBuilder()
             .insert()
@@ -17,6 +18,7 @@ export const create = async (payload) => {
     }
 }
 
+//get all listings
 export const getAccoms = async ({ id, listingName, price, occupancy, filter}) => {
 
     try {
@@ -30,7 +32,7 @@ export const getAccoms = async ({ id, listingName, price, occupancy, filter}) =>
 
         return result 
     }
-    catch (error ) {
+    catch (error) {
         
     }
 

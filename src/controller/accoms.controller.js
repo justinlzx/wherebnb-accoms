@@ -1,8 +1,8 @@
 import Res from '../Res/response.js';
 import { uploadImage, deleteImage } from '../service/common.service.js';
-import { create, getAccoms } from '../service/accoms.service.js';
+import { createAccoms, getAccoms } from '../service/accoms.service.js';
 
-export const createAccoms = async (req, res) => {
+export const createAccomsController = async (req, res) => {
 
     // this function creates accoms and uploads images to cloud storage. if an error occurs, the images uploaded will be deleted from cloud storage
     try {
@@ -24,7 +24,7 @@ export const createAccoms = async (req, res) => {
                 images_5: imageUrls[4] || null
         }
 
-        const result = await create(payload);
+        const result = await createAccoms(payload);
 
         return Res.successResponse(res, result);
     } catch (error) {
@@ -46,7 +46,7 @@ export const createAccoms = async (req, res) => {
     }
 };
 
-export const getAccomsByFilter = async(req, res) => {
+export const getAccomsByFilterController = async(req, res) => {
     // call some service 
 
     const { 
