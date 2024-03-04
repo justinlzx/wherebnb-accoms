@@ -7,7 +7,6 @@ export const ListingModel = new EntitySchema({
     target: Listing,
     columns: {
         listingId: {
-            generated: true,
             primary: true,
             type: "int",
             generated: true

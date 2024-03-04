@@ -6,8 +6,8 @@
   "scripts": {
     "dev": "nodemon --exec cross-env USE_DB=LOCAL node src/index.js",
     "dev:remote": "nodemon --exec cross-env USE_DB=REMOTE  node src/index.js",
-    "sync": "node --exec cross-env SYNC_DB=TRUE USE_DB=LOCAL src/index.js",
-    "sync:remote": "node --exec cross-env SYNC_DB=TRUE USE_DB=REMOTE src/index.js"
+    "sync": "nodemon --exec cross-env SYNC_DB=TRUE USE_DB=LOCAL node src/index.js",
+    "sync:remote": "nodemon --exec cross-env SYNC_DB=TRUE USE_DB=REMOTE node src/index.js"
   },
   "dependencies": {
     "chalk": "^5.3.0",
