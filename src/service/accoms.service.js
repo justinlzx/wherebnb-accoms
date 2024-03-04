@@ -16,3 +16,27 @@ export const create = async (payload) => {
         throw `UploadError: ${error}`;
     }
 }
+
+export const getAccoms = async ({ id, listingName, price, occupancy, filter}) => {
+
+    try {
+        const query = await AppDataSource.createQueryBuilder()
+
+        if (listingName){
+            query.andWhere('') //listingName LIKE '%${listingName}%'
+        }
+
+        const result = query.getMany()
+
+        return result 
+    }
+    catch (error ) {
+        
+    }
+
+   
+}
+
+{
+
+}

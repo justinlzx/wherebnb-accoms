@@ -9,3 +9,8 @@ const upload = multer({ storage: multer.memoryStorage() });
 export const accomsRoutes = express.Router();
 
 accomsRoutes.post('/', upload.array('images', 5), createAccoms);
+accomsRoutes.get('/:id')
+
+// 3000/accoms/1
+
+//axios.get('http://localhost:3000/accoms' + '/id') 

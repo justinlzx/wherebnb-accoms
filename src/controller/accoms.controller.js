@@ -1,6 +1,6 @@
 import Res from '../Res/response.js';
 import { uploadImage, deleteImage } from '../service/common.service.js';
-import { create } from '../service/accoms.service.js';
+import { create, getAccoms } from '../service/accoms.service.js';
 
 export const createAccoms = async (req, res) => {
 
@@ -45,3 +45,23 @@ export const createAccoms = async (req, res) => {
         return Res.errorResponse(res, error)
     }
 };
+
+export const getAccomsByFilter = async(req, res) => {
+    // call some service 
+
+    const { 
+        name, 
+        price,
+        occupancy
+    } = req.body // req.query 
+
+    const { id } = req.query
+
+    const payload = {
+
+    }
+
+    const result = await getAccoms(payload)
+
+    return result
+}
