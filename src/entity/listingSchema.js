@@ -6,10 +6,14 @@ export const ListingModel = new EntitySchema({
     name: "Listing",
     target: Listing,
     columns: {
-        listingId: {
+        id: {
             primary: true,
             type: "int",
             generated: true
+        },
+        createdAt: {
+            type: "timestamp",
+            createDate: true,
         },
         name: {
             type: "varchar",
@@ -49,6 +53,5 @@ export const ListingModel = new EntitySchema({
             type: "varchar",
             nullable: true
         }
-        
     }
 })

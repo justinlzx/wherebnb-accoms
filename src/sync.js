@@ -1,6 +1,7 @@
 import * as dotenv from "dotenv";
 import { DataSource } from "typeorm";
-import { localDbConfig, remoteDbConfig } from "./db/ormconfig.js";
+import { localDbConfig, remoteDbConfig } from "../db/ormconfig.js";
+import chalk from 'chalk';
 
 dotenv.config();
 
@@ -15,4 +16,4 @@ new DataSource(ENV.USE_DB === "LOCAL" ? localDbConfig : remoteDbConfig)
   })
   .catch((error) => console.log(error))
   .finally(() => dataSource.destroy())
-  .then(() => console.log("Database gracefully closed"));
+  .then(() => console.log(chalk.bgGreen("Database gracefully closed")));
