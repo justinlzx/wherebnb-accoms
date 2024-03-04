@@ -8,8 +8,8 @@ export const CommentModel = new EntitySchema({
     columns: {
         commentId: {
             type: "int",
-            primary: "true",
-            generated: "true"
+            primary: true,
+            generated: true
         },
         listingId: {
             type: "int",
@@ -18,7 +18,7 @@ export const CommentModel = new EntitySchema({
             type: "varchar",
         },
         userId:{
-            type: "varchar"
+            type: "int"
         }
     }
 })

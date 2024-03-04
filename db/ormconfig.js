@@ -30,5 +30,3 @@ export const localDbConfig = {
     "entities": entityList,
     "synchronize": syncDB || false
 }
-
-console.log("syncDb: ", syncDB);
