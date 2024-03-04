@@ -19,6 +19,9 @@ export const CommentModel = new EntitySchema({
         },
         userId:{
             type: "varchar"
+        },
+        stars:{
+            type: "int",
         }
     }
 })

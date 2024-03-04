@@ -1,6 +1,6 @@
 import express from 'express';
 import {
-    createComment
+    createCommentController
 } from '../controller/comment.controller.js';
 import multer from 'multer';
 
@@ -8,8 +8,8 @@ const upload = multer({ storage: multer.memoryStorage() });
 
 export const commentRoutes = express.Router();
 
-commentRoutes.post('/', createComment);
-commentRoutes.get('/:accomId')
+commentRoutes.post('/', createCommentController);
+commentRoutes.get('/:listingId')
 
 // 3000/accoms/1
 

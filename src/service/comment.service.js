@@ -3,7 +3,7 @@ import { AppDataSource } from "../index.js";
 import chalk from 'chalk';
 
 //writes new comment in DB
-export const create = async (payload) => {
+export const createComment = async (payload) => {
     try{
         const result = await AppDataSource.createQueryBuilder()
             .insert()
@@ -19,7 +19,7 @@ export const create = async (payload) => {
 }
 
 //get all comments by listingId (ie for one listing)
-export const getComment = async ({ commentId, listingId, comment, stars}) => {
+export const getComment = async ({ commentId, listingId, comment, userId, stars }) => {
 
     try {
 
