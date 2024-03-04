@@ -50,6 +50,7 @@ export const ListingModel = new EntitySchema({
             type: "varchar",
             nullable: true
         }
+        //add in created at 
         
     }
 })
