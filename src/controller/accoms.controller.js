@@ -49,16 +49,16 @@ export const createAccomsController = async (req, res) => {
 export const getAccomsByFilterController = async(req, res) => {
     // call some service 
 
-    const { 
-        name, 
-        price,
-        occupancy
-    } = req.body // req.query 
+    // const { 
+    //     name, 
+    //     price,
+    //     occupancy
+    // } = req.body // req.query 
 
     const { id } = req.query
 
     const payload = {
-
+        id: id,
     }
 
     const result = await getAccoms(payload)
