@@ -24,7 +24,7 @@ export const getAccomsById = async (id) => {
             .select('listing')
             .from(ListingModel, 'listing')
             .where('listing.id = :id', { id })
-            .getMany();
+            .getOne();
 
         return result;
     } catch (error) {
