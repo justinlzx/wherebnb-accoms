@@ -55,13 +55,18 @@ export const getAccomsByFilterController = async(req, res) => {
     //     occupancy
     // } = req.body // req.query 
 
-    const { id } = req.query
+    const { listingId } = req.query
 
     const payload = {
-        id: id,
+        id: listingId,
+    };
+
+    try {
+        const result = await getAccoms(payload)
+        res.json(result);
+    } catch (error) {
+        return Res.errorResponse(res, error)
     }
-
-    const result = await getAccoms(payload)
-
+    
     return result
 }

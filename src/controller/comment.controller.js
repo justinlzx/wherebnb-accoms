@@ -16,19 +16,11 @@ export const createCommentController = async (req, res) => {
 export const getCommentController = async(req, res) => {
     // call some service 
     try{
-        const { 
-            commentId, 
-            listingId, 
-            comment, 
-            userId, 
-            stars
-        } = req.body // req.query 
-    
-        // const { id } = req.query
-    
-        const payload = req.body
-        const result = await getComment(payload)
-    
+        const { listingId } = req.params
+        console.log(listingId)
+        
+        const result = await getComment({listingId})
+        console.log(result)
         res.json(result)
     } catch (error) {
         return Res.errorResponse(res, error)

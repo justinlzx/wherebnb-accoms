@@ -19,26 +19,20 @@ export const createAccoms = async (payload) => {
 }
 
 //get all listings
-export const getAccoms = async ({ id, listingName, price, occupancy, filter}) => {
-
+// export const getAccoms = async ({ id, listingName, price, occupancy, filter}) => {
+export const getAccoms = async () => {
     try {
         const query = await AppDataSource.createQueryBuilder()
-
-        if (listingName){
-            query.andWhere('') //listingName LIKE '%${listingName}%'
-        }
-
-        const result = query.getMany()
-
-        return result 
+        const result = await query.getMany();
+        return result
+        // if (listingName){
+        //     query.andWhere('') //listingName LIKE '%${listingName}%'
+        // }
     }
     catch (error) {
-        
+        console.log(`${chalk.red('Error:')} ${error}`)
+        throw `UploadError: ${error}`;
     }
-
-   
 }
 
-{
-
-}
+//get listings by filtered values

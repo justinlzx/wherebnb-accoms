@@ -55,8 +55,11 @@ export const ListingModel = new EntitySchema({
         image_5: {
             type: "varchar",
             nullable: true
-        }
+        },
         //add in created at 
+        createdAt:{
+            type: "timestamp"
+        }
         
     }
 })
