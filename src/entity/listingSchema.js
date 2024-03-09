@@ -35,6 +35,9 @@ export const ListingModel = new EntitySchema({
         address: {
             type: "varchar",
         },
+        pricePerNight:{
+            type: "int"
+        },
         image_1: {
             type: "varchar",
             nullable: true
@@ -61,6 +64,5 @@ export const ListingModel = new EntitySchema({
             type: "timestamp",
             default: () => "CURRENT_TIMESTAMP",
         }
-        
     }
 })
