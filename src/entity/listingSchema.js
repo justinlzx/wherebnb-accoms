@@ -21,6 +21,12 @@ export const ListingModel = new EntitySchema({
         propertyType: {
             type: "varchar",
         },
+        country:{
+            type: "varchar"
+        },
+        description:{
+            type: "varchar"
+        },
         latitude: {
             type: "float",
         },
