@@ -52,6 +52,14 @@ export const ListingModel = new EntitySchema({
         image_5: {
             type: "varchar",
             nullable: true
-        }
+        },
+        description: {
+            type: 'text',
+            nullable: true
+        },
+        instructions: {
+            type: 'text',
+            nullable: true
+        },
     }
 })
