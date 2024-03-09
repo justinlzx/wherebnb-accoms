@@ -10,7 +10,6 @@ export const ListingModel = new EntitySchema({
             generated: true,
             primary: true,
             type: "int",
-            generated: true
         },
         name: {
             type: "varchar",
@@ -57,8 +56,10 @@ export const ListingModel = new EntitySchema({
             nullable: true
         },
         //add in created at 
-        createdAt:{
-            type: "timestamp"
+        createdAt: {
+            name: "created_at",
+            type: "timestamp",
+            default: () => "CURRENT_TIMESTAMP",
         }
         
     }

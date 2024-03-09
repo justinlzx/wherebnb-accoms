@@ -43,4 +43,27 @@ export const getAccoms = async () => {
     }
 }
 
-//get listings by filtered values
+//get listings by filter
+export const getAccomsByFilter = async({ propertyType, country }) => {
+    
+    try{
+        const result = await AppDataSource.createQueryBuilder()
+            .select("listingTable")
+            .into(ListingModel, "listingTable")
+
+        //if propertyType filter is clicked
+        if( propertyType.length > 0 ) {
+            query.andWhere("listingTable.propertyType = :propertyType", { propertyType })
+        }
+        //if country filter is clicked
+        if( country.length > 0 ) {
+            query.andWhere("listingTable.country = :country", { country })
+        }
+
+        return result;
+    } catch (error) {
+        console.log(`${chalk.red('Error:')} ${error}`)
+        throw `UploadError: ${error}`;
+    }
+}
+

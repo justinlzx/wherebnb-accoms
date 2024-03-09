@@ -1,6 +1,7 @@
 import Res from '../Res/response.js';
 import { uploadImage, deleteImage } from '../service/common.service.js';
-import { createAccoms, getAccoms } from '../service/accoms.service.js';
+import { createAccoms, getAccoms, getAccomsByFilter } from '../service/accoms.service.js';
+import { ConsoleLogEntry } from 'selenium-webdriver/bidi/logEntries.js';
 
 export const createAccomsController = async (req, res) => {
 
@@ -8,22 +9,28 @@ export const createAccomsController = async (req, res) => {
     try {
         const images = req.files;
         const imageUrls = await Promise.all(images.map(async (image) => {
-            const imageUrl = await uploadImage(image, `${image.originalname}`);
+            const imageUrl = await uploadImage(image, `${image.originalname}`); //this works and prints the "file available at URL"
+            console.log(imageUrl.length)
             return imageUrl;
+            
+            
+        
         }));
-
+        console.log(imageUrls)
+        
         try {
         const data = req.body;
-
+        console.log("second block")
         const payload = {
                 ...data,
-                images_1: imageUrls[0] || null,
-                images_2: imageUrls[1] || null,
-                images_3: imageUrls[2] || null,
-                images_4: imageUrls[3] || null,
-                images_5: imageUrls[4] || null
+                image_1: imageUrls[0] || null,
+                image_2: imageUrls[1] || null,
+                image_3: imageUrls[2] || null,
+                image_4: imageUrls[3] || null,
+                image_5: imageUrls[4] || null
         }
-
+        console.log(payload)
+        
         const result = await createAccoms(payload);
 
         return Res.successResponse(res, result);
@@ -57,6 +64,21 @@ export const getAccomsController = async(req, res) => {
     try {
         const result = await getAccoms()
         res.json(result);
+    } catch (error) {
+        return Res.errorResponse(res, error)
+    }
+}
+
+export const getAccomsByFilterController = async(req, res) => {
+    const {
+        propertyType,
+        country
+    } = req.body
+    console.log(propertyType, country)
+
+    try {
+        const result = await getAccomsByFilter(propertyType, country)
+        res.json(result)
     } catch (error) {
         return Res.errorResponse(res, error)
     }
