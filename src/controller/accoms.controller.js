@@ -73,7 +73,7 @@ export const getAccomsByFilterController = async(req, res) => {
     const {
         propertyType,
         country
-    } = req.body
+    } = req.query
     console.log(propertyType, country)
 
     try {
@@ -82,6 +82,4 @@ export const getAccomsByFilterController = async(req, res) => {
     } catch (error) {
         return Res.errorResponse(res, error)
     }
-    
-    return result
 }

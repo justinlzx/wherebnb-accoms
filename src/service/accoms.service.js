@@ -44,23 +44,30 @@ export const getAccoms = async () => {
 }
 
 //get listings by filter
-export const getAccomsByFilter = async({ propertyType, country }) => {
-    
+export const getAccomsByFilter = async( propertyType, country ) => {
+    console.log(propertyType, country)
     try{
-        const result = await AppDataSource.createQueryBuilder()
-            .select("listingTable")
-            .into(ListingModel, "listingTable")
+        const query = AppDataSource.createQueryBuilder()
+            .select("listing")
+            .from(ListingModel, "listing")
+
 
         //if propertyType filter is clicked
-        if( propertyType.length > 0 ) {
-            query.andWhere("listingTable.propertyType = :propertyType", { propertyType })
+        if( propertyType && propertyType.length > 0 ) {
+            query.andWhere("listing.propertyType = :propertyType", { propertyType })
+
+            console.log("propertytype should execute")
         }
         //if country filter is clicked
-        if( country.length > 0 ) {
-            query.andWhere("listingTable.country = :country", { country })
+        if( country && country.length > 0 ) {
+            query.andWhere("listing.country = :country", { country })
+            console.log("country should execute")
         }
+        console.log(`SQL Query: ${query.getSql()}`);
+        const result = await query.getMany();
 
-        return result;
+        return result
+
     } catch (error) {
         console.log(`${chalk.red('Error:')} ${error}`)
         throw `UploadError: ${error}`;
