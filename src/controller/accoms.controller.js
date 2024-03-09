@@ -46,7 +46,7 @@ export const createAccomsController = async (req, res) => {
     }
 };
 
-export const getAccomsByFilterController = async(req, res) => {
+export const getAccomsController = async(req, res) => {
     // call some service 
 
     // const { 
@@ -54,15 +54,8 @@ export const getAccomsByFilterController = async(req, res) => {
     //     price,
     //     occupancy
     // } = req.body // req.query 
-
-    const { listingId } = req.query
-
-    const payload = {
-        id: listingId,
-    };
-
     try {
-        const result = await getAccoms(payload)
+        const result = await getAccoms()
         res.json(result);
     } catch (error) {
         return Res.errorResponse(res, error)

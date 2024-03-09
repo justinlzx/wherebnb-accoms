@@ -23,7 +23,15 @@ export const createAccoms = async (payload) => {
 export const getAccoms = async () => {
     try {
         const query = await AppDataSource.createQueryBuilder()
+        .select("listingTable")
+        .from(ListingModel, "listingTable")
+
+         // Log the SQL query
+         console.log(`SQL Query: ${query.getSql()}`);
+
         const result = await query.getMany();
+        //Log result
+        console.log(`Result: ${JSON.stringify(result)}`);
         return result
         // if (listingName){
         //     query.andWhere('') //listingName LIKE '%${listingName}%'
