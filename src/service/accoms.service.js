@@ -31,7 +31,12 @@ export const getAccomsById = async (id) => {
 
         const finalResult = {
             ...result,
-            bookings: bookings.data.data
+            bookings: bookings.data.data.map((booking) => {
+                return {
+                    startDate: booking.startDate,
+                    endDate: booking.endDate,
+                }
+            })
         }
 
         return finalResult;
