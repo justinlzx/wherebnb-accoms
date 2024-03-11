@@ -53,13 +53,7 @@ export const createAccomsController = async (req, res) => {
 };
 
 export const getAccomsController = async(req, res) => {
-    // call some service 
-
-    // const { 
-    //     name, 
-    //     price,
-    //     occupancy
-    // } = req.body // req.query 
+  
     try {
         const result = await getAccoms()
         res.json(result);
@@ -74,7 +68,6 @@ export const getAccomsByFilterController = async(req, res) => {
         pricePerNight,
         occupancy
     } = req.query
-    console.log(country, pricePerNight, occupancy)
 
     try {
         const result = await getAccomsByFilter(country, pricePerNight, occupancy)
