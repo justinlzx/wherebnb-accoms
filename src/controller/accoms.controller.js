@@ -1,7 +1,6 @@
 import Res from '../Res/response.js';
 import { uploadImage, deleteImage } from '../service/common.service.js';
 import { createAccoms, getAccoms, getAccomsByFilter } from '../service/accoms.service.js';
-import { ConsoleLogEntry } from 'selenium-webdriver/bidi/logEntries.js';
 
 export const createAccomsController = async (req, res) => {
 

@@ -45,10 +45,10 @@ export const getAccoms = async () => {
 
 //get listings by filter
 export const getAccomsByFilter = async( country, maxPricePerNight ) => {
-    console.log(country, pricePerNight)
+    console.log(country, maxPricePerNight)
     try{
         const query = AppDataSource.createQueryBuilder()
-            .select()
+            .select('listing')
             .from(ListingModel, "listing")
 
         //if country filter is clicked
