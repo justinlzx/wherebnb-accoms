@@ -44,8 +44,8 @@ export const getAccoms = async () => {
 }
 
 //get listings by filter
-export const getAccomsByFilter = async( country, maxPricePerNight ) => {
-    console.log(country, maxPricePerNight)
+export const getAccomsByFilter = async( country, maxPricePerNight, minOccupancy ) => {
+    console.log(country, maxPricePerNight, minOccupancy)
     try{
         const query = AppDataSource.createQueryBuilder()
             .select('listing')
@@ -53,14 +53,22 @@ export const getAccomsByFilter = async( country, maxPricePerNight ) => {
 
         //if country filter is clicked
         if( country && country.length > 0 ) {
-            query.where("listing.country = :country", { country })
+            query.andWhere("listing.country = :country", { country })
             console.log("country should execute")
         }
+        
         //if there is a price filter
         if(maxPricePerNight){
             query.andWhere("listing.pricePerNight < :pricePerNight", { pricePerNight: maxPricePerNight })
             console.log("PPN executes")
         }
+
+        //if there is a price filter
+        if(minOccupancy){
+        query.andWhere("listing.occupancy < :occupancy", { occupancy: minOccupancy })
+        console.log("occupancy executes")
+        }
+
         console.log(`SQL Query: ${query.getSql()}`);
         const result = await query.getMany();
 
