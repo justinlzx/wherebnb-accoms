@@ -65,7 +65,7 @@ export const getAccomsByFilter = async( country, maxPricePerNight, minOccupancy 
 
         //if there is a price filter
         if(minOccupancy){
-        query.andWhere("listing.occupancy < :occupancy", { occupancy: minOccupancy })
+        query.andWhere("listing.occupancy >= :occupancy", { occupancy: minOccupancy })
         console.log("occupancy executes")
         }
 

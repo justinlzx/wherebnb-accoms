@@ -71,12 +71,13 @@ export const getAccomsController = async(req, res) => {
 export const getAccomsByFilterController = async(req, res) => {
     const {
         country,
-        pricePerNight
+        pricePerNight,
+        occupancy
     } = req.query
-    console.log(country, pricePerNight)
+    console.log(country, pricePerNight, occupancy)
 
     try {
-        const result = await getAccomsByFilter(country, pricePerNight)
+        const result = await getAccomsByFilter(country, pricePerNight, occupancy)
         res.json(result)
     } catch (error) {
         return Res.errorResponse(res, error)

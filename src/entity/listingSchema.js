@@ -38,6 +38,9 @@ export const ListingModel = new EntitySchema({
         pricePerNight:{
             type: "int"
         },
+        occupancy:{
+            type: "int"
+        },
         image_1: {
             type: "varchar",
             nullable: true
