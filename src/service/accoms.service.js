@@ -18,6 +18,22 @@ export const create = async (payload) => {
     }
 }
 
+export const update = async (id, payload) => {
+    try {
+        const result = await AppDataSource
+            .createQueryBuilder()
+            .update(ListingModel)
+            .set(payload)
+            .where('id = :id', { id })
+            .execute();
+
+        return result;
+    } catch (error) {
+        console.log(`${chalk.red('Error:')} ${error}`)
+        throw `UpdateError: ${error}`;
+    }
+};
+
 export const getAccomsById = async (id) => {
     try {
         const result = await AppDataSource

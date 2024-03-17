@@ -61,5 +61,8 @@ export const ListingModel = new EntitySchema({
             type: 'text',
             nullable: true
         },
+        rating: {
+            type: "int",
+        },
     }
 })

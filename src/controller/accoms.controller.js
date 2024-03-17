@@ -1,6 +1,6 @@
 import Res from '../Res/response.js';
 import { uploadImage, deleteImage } from '../service/common.service.js';
-import { create, getAccomsById } from '../service/accoms.service.js';
+import { create, update, getAccomsById } from '../service/accoms.service.js';
 
 export const createAccoms = async (req, res) => {
 
@@ -50,6 +50,17 @@ export const getAccomsByIdController = async (req, res) => {
     const { id } = req.params;
     try {
         const result = await getAccomsById(id);
+        return Res.successResponse(res, result);
+    } catch (error) {
+        return Res.errorResponse(res, error);
+    }
+};
+
+export const updateAccomsController = async (req, res) => {
+    const { id } = req.params;
+    const data = req.body;
+    try {
+        const result = await update(id, data);
         return Res.successResponse(res, result);
     } catch (error) {
         return Res.errorResponse(res, error);
