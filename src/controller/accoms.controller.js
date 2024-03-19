@@ -47,8 +47,9 @@ export const createAccoms = async (req, res) => {
 };
 
 export const getAccomsByIdController = async (req, res) => {
-    const { id } = req.params;
+    const id = req.params.id;
     try {
+        console.log('try', id)
         const result = await getAccomsById(id);
         return Res.successResponse(res, result);
     } catch (error) {
