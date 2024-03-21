@@ -1,8 +1,6 @@
 import express from 'express';
 import {
-    createAccoms,
-    getAccomsByIdController,
-    updateAccomsController
+    createAccomsController, getAccomsController, getAccomsByFilterController
 } from '../controller/accoms.controller.js';
 import multer from 'multer';
 
@@ -10,6 +8,7 @@ const upload = multer({ storage: multer.memoryStorage() });
 
 export const accomsRoutes = express.Router();
 
-accomsRoutes.post('/', upload.array('images', 5), createAccoms);
-accomsRoutes.get('/:id', getAccomsByIdController)
-accomsRoutes.put('/:id', updateAccomsController)
+
+accomsRoutes.post('/', upload.array('images', 5), createAccomsController);
+accomsRoutes.get('/', getAccomsController)
+accomsRoutes.get('/filter', getAccomsByFilterController)

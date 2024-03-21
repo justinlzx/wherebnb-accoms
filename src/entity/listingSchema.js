@@ -9,7 +9,6 @@ export const ListingModel = new EntitySchema({
         id: {
             primary: true,
             type: "int",
-            generated: true
         },
         createdAt: {
             type: "timestamp",
@@ -24,6 +23,12 @@ export const ListingModel = new EntitySchema({
         propertyType: {
             type: "varchar",
         },
+        country:{
+            type: "varchar"
+        },
+        description:{
+            type: "varchar"
+        },
         latitude: {
             type: "float",
         },
@@ -32,6 +37,12 @@ export const ListingModel = new EntitySchema({
         },
         address: {
             type: "varchar",
+        },
+        pricePerNight:{
+            type: "int"
+        },
+        occupancy:{
+            type: "int"
         },
         image_1: {
             type: "varchar",
@@ -53,6 +64,11 @@ export const ListingModel = new EntitySchema({
             type: "varchar",
             nullable: true
         },
+        //add in created at 
+        createdAt: {
+            name: "created_at",
+            type: "timestamp",
+            default: () => "CURRENT_TIMESTAMP",
         description: {
             type: 'text',
             nullable: true

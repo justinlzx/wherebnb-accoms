@@ -1,9 +1,13 @@
 export class Listing {
-    constructor(id, name, hostId, propertyType, address, latitude, longitude, image_1, image_2, image_3, image_4, image_5, createdAt, description, instructions, rating, price) {
-        this.id = id;
+    constructor(listingId, name, hostId, propertyType, country, description, pricePerNight, occupancy, address, latitude, longitude, image_1, image_2, image_3, image_4, image_5, createdAt) {
+        this.listingId = listingId;
         this.name = name;
         this.hostId = hostId;
         this.propertyType = propertyType;
+        this.country = country;
+        this.description = description;
+        this.pricePerNight = pricePerNight;
+        this.occupancy = occupancy;
         this.address = address;
         this.latitude = latitude;
         this.longitude = longitude;

@@ -1,30 +1,29 @@
 import Res from '../Res/response.js';
 import { uploadImage, deleteImage } from '../service/common.service.js';
-import { create, update, getAccomsById } from '../service/accoms.service.js';
+import { createAccoms, getAccoms, getAccomsByFilter } from '../service/accoms.service.js';
 
-export const createAccoms = async (req, res) => {
+
+export const createAccomsController = async (req, res) => {
 
     // this function creates accoms and uploads images to cloud storage. if an error occurs, the images uploaded will be deleted from cloud storage
     try {
         const images = req.files;
         const imageUrls = await Promise.all(images.map(async (image) => {
-            const imageUrl = await uploadImage(image, `${image.originalname}`);
+            const imageUrl = await uploadImage(image, `${image.originalname}`); //this works and prints the "file available at URL"
             return imageUrl;
         }));
-
         try {
         const data = req.body;
-
         const payload = {
                 ...data,
-                images_1: imageUrls[0] || null,
-                images_2: imageUrls[1] || null,
-                images_3: imageUrls[2] || null,
-                images_4: imageUrls[3] || null,
-                images_5: imageUrls[4] || null
-        }
-
-        const result = await create(payload);
+                image_1: imageUrls[0] || null,
+                image_2: imageUrls[1] || null,
+                image_3: imageUrls[2] || null,
+                image_4: imageUrls[3] || null,
+                image_5: imageUrls[4] || null
+              }
+        
+        const result = await createAccoms(payload);
 
         return Res.successResponse(res, result);
     } catch (error) {
@@ -45,6 +44,31 @@ export const createAccoms = async (req, res) => {
         return Res.errorResponse(res, error)
     }
 };
+
+export const getAccomsController = async(req, res) => {
+  
+    try {
+        const result = await getAccoms()
+        res.json(result);
+    } catch (error) {
+        return Res.errorResponse(res, error)
+    }
+}
+
+export const getAccomsByFilterController = async(req, res) => {
+    const {
+        country,
+        pricePerNight,
+        occupancy
+    } = req.query
+
+    try {
+        const result = await getAccomsByFilter(country, pricePerNight, occupancy)
+        res.json(result)
+    } catch (error) {
+        return Res.errorResponse(res, error)
+    }
+}
 
 export const getAccomsByIdController = async (req, res) => {
     const id = req.params.id;
