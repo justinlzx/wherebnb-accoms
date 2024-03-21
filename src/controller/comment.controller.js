@@ -1,29 +1,67 @@
 import Res from '../Res/response.js';
-import { createComment, getComment } from '../service/comment.service.js';
+import { uploadImage, deleteImage } from '../service/common.service.js';
+import { create, getAccoms } from '../service/accoms.service.js';
 
-//add comment
-export const createCommentController = async (req, res) => {
+export const createComment = async (req, res) => {
+
+    // this function creates accoms and uploads images to cloud storage. if an error occurs, the images uploaded will be deleted from cloud storage
     try {
-        const payload = req.body;
-        const result = await createComment(payload);
-        return Res.successResponse(res, result)
-    } catch (error) {
-        return Res.errorResponse(res, error)
-    };
-}
+        const images = req.files;
+        const imageUrls = await Promise.all(images.map(async (image) => {
+            const imageUrl = await uploadImage(image, `${image.originalname}`);
+            return imageUrl;
+        }));
 
-//get comment by listing id
-export const getCommentController = async(req, res) => {
-    // call some service 
-    try{
-        const { listingId } = req.params
-        console.log(listingId)
-        
-        const result = await getComment({listingId})
-        console.log(result)
-        res.json(result)
+        try {
+        const data = req.body;
+
+        const payload = {
+                ...data,
+                images_1: imageUrls[0] || null,
+                images_2: imageUrls[1] || null,
+                images_3: imageUrls[2] || null,
+                images_4: imageUrls[3] || null,
+                images_5: imageUrls[4] || null
+        }
+
+        const result = await create(payload);
+
+        return Res.successResponse(res, result);
+    } catch (error) {
+        await Promise.all(imageUrls.map(async (imageUrl) => {
+            if (imageUrl) {
+                await deleteImage(imageUrl)
+                .then(() => {
+                    console.log('Firebase Image deleted');
+                })
+                .catch((error) => {
+                    console.log('Error deleting image', error);
+                });
+            }
+        }));
+        return Res.errorResponse(res, error)
+    }
     } catch (error) {
         return Res.errorResponse(res, error)
     }
+};
 
+export const getAccomsByFilter = async(req, res) => {
+    // call some service 
+
+    const { 
+        name, 
+        price,
+        occupancy
+    } = req.body // req.query 
+
+    const { id } = req.query
+
+    const payload = {
+
+    }
+
+    const result = await getAccoms(payload)
+
+    return result
 }
