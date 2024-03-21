@@ -9,6 +9,7 @@ export const ListingModel = new EntitySchema({
         id: {
             primary: true,
             type: "int",
+            generated: true,
         },
         createdAt: {
             type: "timestamp",
@@ -64,11 +65,11 @@ export const ListingModel = new EntitySchema({
             type: "varchar",
             nullable: true
         },
-        //add in created at 
         createdAt: {
             name: "created_at",
             type: "timestamp",
             default: () => "CURRENT_TIMESTAMP",
+        },
         description: {
             type: 'text',
             nullable: true

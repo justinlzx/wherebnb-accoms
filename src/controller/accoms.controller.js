@@ -1,6 +1,6 @@
 import Res from '../Res/response.js';
 import { uploadImage, deleteImage } from '../service/common.service.js';
-import { createAccoms, getAccoms, getAccomsByFilter } from '../service/accoms.service.js';
+import { createAccoms, getAccomsByFilter } from '../service/accoms.service.js';
 
 
 export const createAccomsController = async (req, res) => {
@@ -45,16 +45,6 @@ export const createAccomsController = async (req, res) => {
     }
 };
 
-export const getAccomsController = async(req, res) => {
-  
-    try {
-        const result = await getAccoms()
-        res.json(result);
-    } catch (error) {
-        return Res.errorResponse(res, error)
-    }
-}
-
 export const getAccomsByFilterController = async(req, res) => {
     const {
         country,
@@ -64,7 +54,7 @@ export const getAccomsByFilterController = async(req, res) => {
 
     try {
         const result = await getAccomsByFilter(country, pricePerNight, occupancy)
-        res.json(result)
+        return Res.successResponse(res, result)
     } catch (error) {
         return Res.errorResponse(res, error)
     }
@@ -73,7 +63,6 @@ export const getAccomsByFilterController = async(req, res) => {
 export const getAccomsByIdController = async (req, res) => {
     const id = req.params.id;
     try {
-        console.log('try', id)
         const result = await getAccomsById(id);
         return Res.successResponse(res, result);
     } catch (error) {
