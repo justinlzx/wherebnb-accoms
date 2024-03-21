@@ -1,10 +1,10 @@
 import Res from '../Res/response.js';
 import { uploadImage, deleteImage } from '../service/common.service.js';
-import { create, getAccoms } from '../service/accoms.service.js';
+import { create, getComment } from '../service/comment.service.js';
 
 export const createComment = async (req, res) => {
 
-    // this function creates accoms and uploads images to cloud storage. if an error occurs, the images uploaded will be deleted from cloud storage
+    // 
     try {
         const images = req.files;
         const imageUrls = await Promise.all(images.map(async (image) => {
