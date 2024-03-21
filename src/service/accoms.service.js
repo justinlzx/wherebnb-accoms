@@ -99,22 +99,10 @@ export const getAccomsById = async (id) => {
             .createQueryBuilder()
             .select('listing')
             .from(ListingModel, 'listing')
-            .where('listing.id = :id', { id })
+            .where('id = :id', { id })
             .getOne();
 
-        const bookings = await axios.get(`${process.env.BOOKINGS_URL}/booking/${id}`)
-
-        const finalResult = {
-            ...result,
-            bookings: bookings.data.data.map((booking) => {
-                return {
-                    startDate: booking.startDate,
-                    endDate: booking.endDate,
-                }
-            })
-        }
-
-        return finalResult;
+        return result;
     } catch (error) {
         console.log(`${chalk.red('Error:')} ${error}`)
         throw `GetByIdError: ${error}`;

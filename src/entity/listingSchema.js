@@ -30,12 +30,6 @@ export const ListingModel = new EntitySchema({
         description:{
             type: "varchar"
         },
-        latitude: {
-            type: "float",
-        },
-        longitude:{
-            type: "float"
-        },
         address: {
             type: "varchar",
         },
@@ -81,8 +75,5 @@ export const ListingModel = new EntitySchema({
         rating: {
             type: "float",
         },
-        price: {
-            type: "float",
-        }
     }
 })

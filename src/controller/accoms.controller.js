@@ -1,6 +1,6 @@
 import Res from '../Res/response.js';
 import { uploadImage, deleteImage } from '../service/common.service.js';
-import { createAccoms, getAccomsByFilter } from '../service/accoms.service.js';
+import { createAccoms, getAccomsById, getAccomsByFilter } from '../service/accoms.service.js';
 
 
 export const createAccomsController = async (req, res) => {
@@ -61,7 +61,7 @@ export const getAccomsByFilterController = async(req, res) => {
 }
 
 export const getAccomsByIdController = async (req, res) => {
-    const id = req.params.id;
+    const id = +req.params.id;
     try {
         const result = await getAccomsById(id);
         return Res.successResponse(res, result);
