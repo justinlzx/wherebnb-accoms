@@ -78,6 +78,7 @@ export const getAccomsByFilter = async( country, maxPricePerNight, minOccupancy 
 }
 
 export const update = async (id, payload) => {
+    console.log("payload",payload)
     try {
         const result = await AppDataSource
             .createQueryBuilder()
