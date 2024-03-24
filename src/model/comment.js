@@ -1,4 +1,3 @@
-/*export */ 
 export class Comment {
     constructor(commentId, listingId, comment, userId) {
             this.commentId = comment;
@@ -7,7 +6,3 @@ export class Comment {
             this.userId = userId;
     }
 }
-
-// module.exports = {
-//     Comment: Comment
-// };

@@ -6,10 +6,13 @@ export const ListingModel = new EntitySchema({
     name: "Listing",
     target: Listing,
     columns: {
-        listingId: {
-            generated: true,
+        id: {
             primary: true,
             type: "int",
+        },
+        createdAt: {
+            type: "timestamp",
+            createDate: true,
         },
         name: {
             type: "varchar",
@@ -66,6 +69,19 @@ export const ListingModel = new EntitySchema({
             name: "created_at",
             type: "timestamp",
             default: () => "CURRENT_TIMESTAMP",
+        description: {
+            type: 'text',
+            nullable: true
+        },
+        instructions: {
+            type: 'text',
+            nullable: true
+        },
+        rating: {
+            type: "float",
+        },
+        price: {
+            type: "float",
         }
     }
 })

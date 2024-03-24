@@ -17,6 +17,10 @@ export class Listing {
         this.image_4 = image_4;
         this.image_5 = image_5;
         this.createdAt = createdAt;
+        this.description = description;
+        this.instructions = instructions;
+        this.rating = rating;
+        this.price = price;
     }
 }
 

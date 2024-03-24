@@ -35,7 +35,6 @@ app.use(
     console.error(err);
     const code = typeof err.code === "number" ? err.code : 500;
     const stack = ENV.USE_DB === "LOCAL" ? err.stack : "";
-    console.log("stack:", stack)
     res.status(code).json({
       name: err.name,
       success: false,
