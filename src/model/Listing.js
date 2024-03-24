@@ -1,5 +1,5 @@
 export class Listing {
-    constructor(listingId, name, hostId, propertyType, country, description, pricePerNight, occupancy, address, image_1, image_2, image_3, image_4, image_5, createdAt, rating, instructions) {
+    constructor(listingId, name, hostId, propertyType, country, description, pricePerNight, occupancy, address, image_1, image_2, image_3, image_4, image_5, created_at, rating, instructions) {
         this.listingId = listingId;
         this.name = name;
         this.hostId = hostId;
@@ -14,7 +14,7 @@ export class Listing {
         this.image_3 = image_3;
         this.image_4 = image_4;
         this.image_5 = image_5;
-        this.createdAt = createdAt;
+        this.created_at = created_at;
         this.description = description;
         this.instructions = instructions;
         this.rating = rating;

@@ -19,38 +19,33 @@ export const createAccoms = async (payload) => {
     }
 }
 
-//get all listings
-// export const getAccoms = async ({ id, listingName, price, occupancy, filter}) => {
-export const getAccoms = async () => {
-    try {
-        const query = await AppDataSource.createQueryBuilder()
-        .select("listingTable")
-        .from(ListingModel, "listingTable")
-
-         // Log the SQL query
-         console.log(`SQL Query: ${query.getSql()}`);
-
-        const result = await query.getMany();
-        //Log result
-        console.log(`Result: ${JSON.stringify(result)}`);
-        return result
-        // if (listingName){
-        //     query.andWhere('') //listingName LIKE '%${listingName}%'
-        // }
-    }
-    catch (error) {
-        console.log(`${chalk.red('Error:')} ${error}`)
-        throw `UploadError: ${error}`;
-    }
-}
-
 //get listings by filter
 export const getAccomsByFilter = async( country, maxPricePerNight, minOccupancy ) => {
 
     try{
-        const query = AppDataSource.createQueryBuilder()
-            .select('listing')
-            .from(ListingModel, "listing")
+        const query = AppDataSource
+            .getRepository(ListingModel)
+            .createQueryBuilder('listing')
+            .select([
+                "listing.id",
+                "listing.created_at",
+                "listing.name",
+                "listing.hostId",
+                "listing.propertyType",
+                "listing.country",
+                "listing.description",
+                "listing.address",
+                "listing.pricePerNight",
+                "listing.occupancy",
+                "listing.image_1",
+                "listing.image_2",
+                "listing.image_3",
+                "listing.image_4",
+                "listing.image_5",
+                "listing.createdAt",
+                "listing.description",
+                "listing.rating"
+            ])
 
         //if country filter is clicked
         if( country && country.length > 0 ) {
@@ -78,7 +73,6 @@ export const getAccomsByFilter = async( country, maxPricePerNight, minOccupancy 
 }
 
 export const update = async (id, payload) => {
-    console.log("payload",payload)
     try {
         const result = await AppDataSource
             .createQueryBuilder()
@@ -96,12 +90,32 @@ export const update = async (id, payload) => {
 
 export const getAccomsById = async (id) => {
     try {
-        const result = await AppDataSource
-            .createQueryBuilder()
-            .select('listing')
-            .from(ListingModel, 'listing')
-            .where('id = :id', { id })
-            .getOne();
+         const query = AppDataSource
+            .getRepository(ListingModel)
+            .createQueryBuilder('listing')
+            .select([
+               "listing.id",
+                "listing.created_at",
+                "listing.name",
+                "listing.hostId",
+                "listing.propertyType",
+                "listing.country",
+                "listing.description",
+                "listing.address",
+                "listing.pricePerNight",
+                "listing.occupancy",
+                "listing.image_1",
+                "listing.image_2",
+                "listing.image_3",
+                "listing.image_4",
+                "listing.image_5",
+                "listing.createdAt",
+                "listing.description",
+                "listing.rating"
+            ])
+            .where('listing.id = :id', { id });
+
+        const result = await query.getOne();
 
         return result;
     } catch (error) {
@@ -109,3 +123,24 @@ export const getAccomsById = async (id) => {
         throw `GetByIdError: ${error}`;
     }
 }
+
+export const getInstructions = async (id) => {
+    try {
+        console.log(id)
+        
+        const result = await AppDataSource
+            .getRepository(ListingModel)
+            .createQueryBuilder('listing')
+            .select([
+                'listing.id', 
+                'listing.instructions'
+            ])
+            .where('listing.id = :id', { id })
+            .getOne();
+
+        return result;
+    } catch (error) {
+        console.log(`${chalk.red('Error:')} ${error}`)
+        throw `GetInstructionsError: ${error}`;
+    }
+};
