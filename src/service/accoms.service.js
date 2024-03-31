@@ -18,6 +18,8 @@ export const createAccoms = async (payload) => {
     }
 }
 
+
+
 export const getAllAccoms = async () => {
     try {
         const result = await AppDataSource
@@ -31,6 +33,22 @@ export const getAllAccoms = async () => {
         throw `GetAllError: ${error}`;
     }
 }
+
+export const update = async (id, payload) => {
+    console.log("payload",payload)
+    try {
+        const result = await AppDataSource
+            .createQueryBuilder()
+            .update(ListingModel)
+            .set(payload)
+            .where('id = :id', { id })
+            .execute();
+        return result;
+    } catch (error) {
+        console.log(`${chalk.red('Error:')} ${error}`)
+        throw `UpdateError: ${error}`;
+    }
+};
 
 export const getAccomsById = async (id) => {
     try {
@@ -68,3 +86,35 @@ export const getInstructions = async (id) => {
         throw `GetInstructionsError: ${error}`;
     }
 };
+
+export const getAccomsByFilter = async( country, maxPricePerNight, minOccupancy ) => {
+
+    try{
+        const query = AppDataSource.createQueryBuilder()
+            .select('listing')
+            .from(ListingModel, "listing")
+
+        //if country filter is clicked
+        if( country && country.length > 0 ) {
+            query.andWhere("listing.country = :country", { country })
+        }
+        
+        //if there is a price filter
+        if(maxPricePerNight){
+            query.andWhere("listing.pricePerNight < :pricePerNight", { pricePerNight: maxPricePerNight })
+        }
+
+        //if there is a price filter
+        if(minOccupancy){
+        query.andWhere("listing.occupancy >= :occupancy", { occupancy: minOccupancy })
+        }
+
+        const result = await query.getMany();
+
+        return result
+
+    } catch (error) {
+        console.log(`${chalk.red('Error:')} ${error}`)
+        throw `UploadError: ${error}`;
+    }
+}

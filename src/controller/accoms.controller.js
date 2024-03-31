@@ -1,6 +1,6 @@
 import Res from '../Res/response.js';
 import { uploadImage, deleteImage } from '../service/common.service.js';
-import { createAccoms, getAccomsById, getAccomsByFilter, update, getInstructions, getAllAccoms, getAllAccoms } from '../service/accoms.service.js';
+import { createAccoms, getAccomsById, getAccomsByFilter, update, getInstructions, getAllAccoms } from '../service/accoms.service.js';
 
 
 export const createAccomsController = async (req, res) => {
