@@ -9,11 +9,24 @@ export const create = async (payload) => {
             .into(ListingModel)
             .values(payload)
             .execute();
-
         return result;
     } catch (error) {
         console.log(`${chalk.red('Error:')} ${error}`)
         throw `UploadError: ${error}`;
+    }
+}
+
+export const getAllAccoms = async () => {
+    try {
+        const result = await AppDataSource
+            .createQueryBuilder()
+            .select('listing')
+            .from(ListingModel, 'listing')
+            .getMany();
+        return result;
+    } catch (error) {
+        console.log(`${chalk.red('Error:')} ${error}`)
+        throw `GetAllError: ${error}`;
     }
 }
 
