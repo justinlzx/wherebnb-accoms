@@ -1,8 +1,15 @@
-FROM node:lts-alpine
-WORKDIR /Users/justinlee/Documents/GitHub/wherebnb/wherebnb-accoms
-COPY ["package.json", "package-lock.json*", "npm-shrinkwrap.json*", "./"]
-RUN npm install 
+FROM node:lts-alpine AS build
+ARG SYNC_DB=False
+ARG NODE_PORT
+ARG REMOTE_DB_TYPE
+ARG REMOTE_DB_NAME
+ARG REMOTE_DB_PASSWORD
+ARG REMOTE_DB_HOST
+ARG REMOTE_DB_PORT
+WORKDIR /app
+COPY package*.json .
+RUN npm install
 COPY . .
-EXPOSE 3000
-RUN chown -R node ./
-CMD ["npm", "start"]
+
+EXPOSE 3001
+CMD ["node", "src/index.js"]
