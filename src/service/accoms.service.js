@@ -18,24 +18,7 @@ export const createAccoms = async (payload) => {
     }
 }
 
-
-
-export const getAllAccoms = async () => {
-    try {
-        const result = await AppDataSource
-            .createQueryBuilder()
-            .select('listing')
-            .from(ListingModel, 'listing')
-            .getMany();
-        return result;
-    } catch (error) {
-        console.log(`${chalk.red('Error:')} ${error}`)
-        throw `GetAllError: ${error}`;
-    }
-}
-
 export const update = async (id, payload) => {
-    console.log("payload",payload)
     try {
         const result = await AppDataSource
             .createQueryBuilder()
@@ -46,7 +29,7 @@ export const update = async (id, payload) => {
         return result;
     } catch (error) {
         console.log(`${chalk.red('Error:')} ${error}`)
-        throw `UpdateError: ${error}`;
+        return `UpdateError: ${error}`;
     }
 };
 
@@ -57,19 +40,17 @@ export const getAccomsById = async (id) => {
             .select('listing')
             .from(ListingModel, 'listing')
             .where('listing.id = :id', { id })
-            .getMany();
+            .getOne();
 
         return result;
     } catch (error) {
         console.log(`${chalk.red('Error:')} ${error}`)
-        throw `GetByIdError: ${error}`;
+        return `GetByIdError: ${error}`;
     }
 }
 
 export const getInstructions = async (id) => {
     try {
-        console.log(id)
-        
         const result = await AppDataSource
             .getRepository(ListingModel)
             .createQueryBuilder('listing')
@@ -79,11 +60,10 @@ export const getInstructions = async (id) => {
             ])
             .where('listing.id = :id', { id })
             .getOne();
-
-        return result;
+            
+        return result
     } catch (error) {
-        console.log(`${chalk.red('Error:')} ${error}`)
-        throw `GetInstructionsError: ${error}`;
+        return `GetInstructionsError: ${error}`;
     }
 };
 
@@ -115,6 +95,6 @@ export const getAccomsByFilter = async( country, maxPricePerNight, minOccupancy 
 
     } catch (error) {
         console.log(`${chalk.red('Error:')} ${error}`)
-        throw `UploadError: ${error}`;
+        return `UploadError: ${error}`;
     }
 }

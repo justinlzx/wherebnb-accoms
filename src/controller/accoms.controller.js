@@ -1,6 +1,6 @@
 import Res from '../Res/response.js';
 import { uploadImage, deleteImage } from '../service/common.service.js';
-import { createAccoms, getAccomsById, getAccomsByFilter, update, getInstructions, getAllAccoms } from '../service/accoms.service.js';
+import { createAccoms, getAccomsById, getAccomsByFilter, update, getInstructions } from '../service/accoms.service.js';
 
 
 export const createAccomsController = async (req, res) => {
@@ -61,23 +61,16 @@ export const getAccomsByFilterController = async(req, res) => {
 }
 
 
-export const getAllAccomsByController = async (req, res) => {
-    try {
-        const result = await getAllAccoms();
-        console.log(`Result: ${JSON.stringify(result)}`);
-        return Res.successResponse(res, result);
-    } catch (error) {
-        console.log(`Error: ${error.message}`);
-        return Res.errorResponse(res, error);
-    }
-};
-
-
 export const getAccomsByIdController = async (req, res) => {
     const id = +req.params.id;
     try {
         const result = await getAccomsById(id);
-        return Res.successResponse(res, result);
+
+        if (result) {
+            return Res.successResponse(res, result);
+        } else {
+            return Res.errorResponse(res, 'No listing found.');
+        }
     } catch (error) {
         return Res.errorResponse(res, error);
     }
@@ -86,7 +79,6 @@ export const getAccomsByIdController = async (req, res) => {
 export const updateAccomsController = async (req, res) => {
     const { id } = req.params;
     const data = req.body;
-    console.log("data",data) 
     try {
         const result = await update(id, data);
         return Res.successResponse(res, result);
@@ -99,7 +91,12 @@ export const getCheckinInstructionsController = async (req, res) => {
     const { id } = req.params;
     try {
         const result = await getInstructions(id);
-        return Res.successResponse(res, result);
+
+        if (result) {
+            return Res.successResponse(res, result);
+        } else {
+            return Res.errorResponse(res, 'No instructions found for this listing.');
+        }
     } catch (error) {
         return Res.errorResponse(res, error);
     }
