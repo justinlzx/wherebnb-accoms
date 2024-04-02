@@ -14,7 +14,7 @@ export const createAccoms = async (payload) => {
         return result;
     } catch (error) {
         console.log(`${chalk.red('Error:')} ${error}`)
-        throw `UploadError: ${error}`;
+        return `UploadError: ${error}`;
     }
 }
 
@@ -28,7 +28,6 @@ export const update = async (id, payload) => {
             .execute();
         return result;
     } catch (error) {
-        console.log(`${chalk.red('Error:')} ${error}`)
         return `UpdateError: ${error}`;
     }
 };
@@ -44,7 +43,6 @@ export const getAccomsById = async (id) => {
 
         return result;
     } catch (error) {
-        console.log(`${chalk.red('Error:')} ${error}`)
         return `GetByIdError: ${error}`;
     }
 }
@@ -94,7 +92,6 @@ export const getAccomsByFilter = async( country, maxPricePerNight, minOccupancy 
         return result
 
     } catch (error) {
-        console.log(`${chalk.red('Error:')} ${error}`)
         return `UploadError: ${error}`;
     }
 }

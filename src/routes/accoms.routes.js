@@ -12,7 +12,6 @@ const upload = multer({ storage: multer.memoryStorage() });
 
 export const accomsRoutes = express.Router();
 
-
 accomsRoutes.post('/', upload.array('images', 5), createAccomsController);
 accomsRoutes.get('/', getAccomsByFilterController)
 accomsRoutes.get('/:id', getAccomsByIdController);

@@ -1,12 +1,12 @@
 class Res {
-  successResponse = (res, data) => {
-    return res.json({
+  successResponse = (res, data, code) => {
+    return res.status(code || 200).json({
       success: true,
       data,
     });
   };
-  errorResponse = (res, data) => {
-    return res.status(400).json({
+  errorResponse = (res, data, code) => {
+    return res.status(code || 400).json({
       success: false,
       data,
     });

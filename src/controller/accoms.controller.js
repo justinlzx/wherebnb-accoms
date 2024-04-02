@@ -25,7 +25,7 @@ export const createAccomsController = async (req, res) => {
         
         const result = await createAccoms(payload);
 
-        return Res.successResponse(res, result);
+        return Res.successResponse(res, result, 201);
     } catch (error) {
         await Promise.all(imageUrls.map(async (imageUrl) => {
             if (imageUrl) {
@@ -67,7 +67,7 @@ export const getAccomsByIdController = async (req, res) => {
         const result = await getAccomsById(id);
 
         if (result) {
-            return Res.successResponse(res, result);
+            return Res.successResponse(res, result, 200);
         } else {
             return Res.errorResponse(res, 'No listing found.');
         }
