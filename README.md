@@ -5,6 +5,9 @@ wherebnb-accoms is a simple microservice that manages the listings for the where
 ## Setting up 
 
 Install dependencies
+```sh
+  npm install
+```
 
 ## Running the application
 Run app in development server and connect to the cloud database
