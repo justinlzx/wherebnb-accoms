@@ -1,6 +1,7 @@
 import Res from '../Res/response.js';
 import { uploadImage, deleteImage } from '../service/common.service.js';
-import { createAccoms, getAccoms, getAccomsByFilter } from '../service/accoms.service.js';
+import { createAccoms, getAccomsById, getAccomsByFilter, update, getInstructions } from '../service/accoms.service.js';
+
 
 export const createAccomsController = async (req, res) => {
 
@@ -9,17 +10,10 @@ export const createAccomsController = async (req, res) => {
         const images = req.files;
         const imageUrls = await Promise.all(images.map(async (image) => {
             const imageUrl = await uploadImage(image, `${image.originalname}`); //this works and prints the "file available at URL"
-            console.log(imageUrl.length)
             return imageUrl;
-            
-            
-        
         }));
-        console.log(imageUrls)
-        
         try {
         const data = req.body;
-        console.log("second block")
         const payload = {
                 ...data,
                 image_1: imageUrls[0] || null,
@@ -27,12 +21,11 @@ export const createAccomsController = async (req, res) => {
                 image_3: imageUrls[2] || null,
                 image_4: imageUrls[3] || null,
                 image_5: imageUrls[4] || null
-        }
-        console.log(payload)
+              }
         
         const result = await createAccoms(payload);
 
-        return Res.successResponse(res, result);
+        return Res.successResponse(res, result, 201);
     } catch (error) {
         await Promise.all(imageUrls.map(async (imageUrl) => {
             if (imageUrl) {
@@ -52,16 +45,6 @@ export const createAccomsController = async (req, res) => {
     }
 };
 
-export const getAccomsController = async(req, res) => {
-  
-    try {
-        const result = await getAccoms()
-        res.json(result);
-    } catch (error) {
-        return Res.errorResponse(res, error)
-    }
-}
-
 export const getAccomsByFilterController = async(req, res) => {
     const {
         country,
@@ -71,8 +54,50 @@ export const getAccomsByFilterController = async(req, res) => {
 
     try {
         const result = await getAccomsByFilter(country, pricePerNight, occupancy)
-        res.json(result)
+        return Res.successResponse(res, result)
     } catch (error) {
         return Res.errorResponse(res, error)
     }
 }
+
+
+export const getAccomsByIdController = async (req, res) => {
+    const id = +req.params.id;
+    try {
+        const result = await getAccomsById(id);
+
+        if (result) {
+            return Res.successResponse(res, result, 200);
+        } else {
+            return Res.errorResponse(res, 'No listing found.');
+        }
+    } catch (error) {
+        return Res.errorResponse(res, error);
+    }
+};
+
+export const updateAccomsController = async (req, res) => {
+    const { id } = req.params;
+    const data = req.body;
+    try {
+        const result = await update(id, data);
+        return Res.successResponse(res, result);
+    } catch (error) {
+        return Res.errorResponse(res, error);
+    }
+};
+
+export const getCheckinInstructionsController = async (req, res) => {
+    const { id } = req.params;
+    try {
+        const result = await getInstructions(id);
+
+        if (result) {
+            return Res.successResponse(res, result);
+        } else {
+            return Res.errorResponse(res, 'No instructions found for this listing.');
+        }
+    } catch (error) {
+        return Res.errorResponse(res, error);
+    }
+};

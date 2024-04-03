@@ -1,5 +1,6 @@
 import { ListingModel } from "../entity/listingSchema.js";
 import { AppDataSource } from "../index.js";
+import axios from 'axios';
 import chalk from 'chalk';
 
 //add new listing
@@ -10,40 +11,60 @@ export const createAccoms = async (payload) => {
             .into(ListingModel)
             .values(payload)
             .execute();
-
         return result;
     } catch (error) {
         console.log(`${chalk.red('Error:')} ${error}`)
-        throw `UploadError: ${error}`;
+        return `UploadError: ${error}`;
     }
 }
 
-//get all listings
-// export const getAccoms = async ({ id, listingName, price, occupancy, filter}) => {
-export const getAccoms = async () => {
+export const update = async (id, payload) => {
     try {
-        const query = await AppDataSource.createQueryBuilder()
-        .select("listingTable")
-        .from(ListingModel, "listingTable")
-
-         // Log the SQL query
-         console.log(`SQL Query: ${query.getSql()}`);
-
-        const result = await query.getMany();
-        //Log result
-        console.log(`Result: ${JSON.stringify(result)}`);
-        return result
-        // if (listingName){
-        //     query.andWhere('') //listingName LIKE '%${listingName}%'
-        // }
+        const result = await AppDataSource
+            .createQueryBuilder()
+            .update(ListingModel)
+            .set(payload)
+            .where('id = :id', { id })
+            .execute();
+        return result;
+    } catch (error) {
+        return `UpdateError: ${error}`;
     }
-    catch (error) {
-        console.log(`${chalk.red('Error:')} ${error}`)
-        throw `UploadError: ${error}`;
+};
+
+export const getAccomsById = async (id) => {
+    try {
+        const result = await AppDataSource
+            .createQueryBuilder()
+            .select('listing')
+            .from(ListingModel, 'listing')
+            .where('listing.id = :id', { id })
+            .getOne();
+
+        return result;
+    } catch (error) {
+        return `GetByIdError: ${error}`;
     }
 }
 
-//get listings by filter
+export const getInstructions = async (id) => {
+    try {
+        const result = await AppDataSource
+            .getRepository(ListingModel)
+            .createQueryBuilder('listing')
+            .select([
+                'listing.id', 
+                'listing.instructions'
+            ])
+            .where('listing.id = :id', { id })
+            .getOne();
+            
+        return result
+    } catch (error) {
+        return `GetInstructionsError: ${error}`;
+    }
+};
+
 export const getAccomsByFilter = async( country, maxPricePerNight, minOccupancy ) => {
 
     try{
@@ -71,8 +92,6 @@ export const getAccomsByFilter = async( country, maxPricePerNight, minOccupancy 
         return result
 
     } catch (error) {
-        console.log(`${chalk.red('Error:')} ${error}`)
-        throw `UploadError: ${error}`;
+        return `UploadError: ${error}`;
     }
 }
-
